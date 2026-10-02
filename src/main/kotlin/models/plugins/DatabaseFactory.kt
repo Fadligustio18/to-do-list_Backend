@@ -15,7 +15,7 @@ private fun hikari(): DataSource {
         driverClassName = "org.mariadb.jdbc.Driver"
         jdbcUrl = System.getenv("DB_URL")?: "jdbc:mariadb://localhost:3306/belajar"
         username = System.getenv("USER")?: "root"
-        password = System.getenv("PASSWORD")?: "120807"
+        password = System.getenv("PASSWORD")?: "changeme"
         maximumPoolSize = 5
         isAutoCommit = false
         transactionIsolation = "TRANSACTION_REPEATABLE_READ"
