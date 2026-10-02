@@ -1,0 +1,8 @@
+ktor:
+  deployment:
+    port: 8080
+  application:
+    modules:
+      - com.example.models.plugins.DatabaseFactoryKt.configureDatabases
+      - com.example.SerializationKt.configureSerialization
+      - com.example.RoutingKt.configureRouting
