@@ -19,7 +19,7 @@ fun Route.taskController(){
         get {
             call.respond(service.getAll())
         }
-        get("/id"){
+        get("/{id}"){
             val id = call.parameters["id"]?.toIntOrNull()
                 ?: return@get call.respond(HttpStatusCode.BadRequest, "ID tidak valid ")
             val task = service.getById(id)

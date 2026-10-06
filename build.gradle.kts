@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(ktorLibs.plugins.ktor)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 group = "com.example"
@@ -14,9 +15,11 @@ kotlin {
     jvmToolchain(21)
 }
 dependencies {
+    implementation("io.ktor:ktor-serialization-kotlinx-json:3.6.0")
     implementation("org.jetbrains.exposed:exposed-core:0.57.0")
     implementation("org.jetbrains.exposed:exposed-dao:0.57.0")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.57.0")
+    implementation("io.ktor:ktor-server-status-pages:3.6.0")
     implementation("org.jetbrains.exposed:exposed-java-time:0.57.0")
     implementation("org.mariadb.jdbc:mariadb-java-client:3.5.3")
     implementation("com.zaxxer:HikariCP:6.2.1")

@@ -3,6 +3,7 @@ ktor:
     port: 8080
   application:
     modules:
+      - com.example.StatusPagesKt.configureStatusPages
       - com.example.models.plugins.DatabaseFactoryKt.configureDatabases
       - com.example.SerializationKt.configureSerialization
       - com.example.RoutingKt.configureRouting
