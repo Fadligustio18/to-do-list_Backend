@@ -27,6 +27,9 @@ fun Route.categoryController(){
         }
         post {
             val dto =call.receive<CategoryDto>()
+            val error = dto.validate()
+            if(error != null)return@post call.respond(HttpStatusCode.BadRequest, error)
+
             val newId = service.create(dto)
             call.respond(HttpStatusCode.Created, mapOf("id" to newId))
         }
@@ -34,6 +37,10 @@ fun Route.categoryController(){
             val id = call.parameters["id"]?.toIntOrNull()
                 ?: return@put call.respond(HttpStatusCode.BadRequest, "ID tidak valid")
             val dto = call.receive<CategoryDto>()
+            val error = dto.validate()
+            if(error != null) return@put call.respond(HttpStatusCode.BadRequest, error)
+
+
             val success = service.update(id,dto)
             if (!success) call.respond(HttpStatusCode.NotFound)
             else call.respond(HttpStatusCode.OK)
