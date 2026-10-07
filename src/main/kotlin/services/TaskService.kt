@@ -4,16 +4,21 @@ import com.example.models.Categories
 import com.example.models.Tasks
 import com.example.models.TaskDto
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class TaskService {
 
-    fun getAll(): List<TaskDto> = transaction{
-        (Tasks innerJoin Categories)
-            .selectAll()
-            .map { toDto(it) }
+    fun getAll(categoryId: Int? = null, completed: Boolean? = null): List<TaskDto> = transaction{
+        var query = (Tasks innerJoin Categories).selectAll()
+        if (categoryId != null){
+            query = query.andWhere { Tasks.categoryId eq categoryId}
+        }
+        if (completed != null){
+            query = query.andWhere { Tasks.isCompleted eq completed}
+        }
+        query.map { toDto(it) }
     }
+
     fun getById(id: Int): TaskDto? = transaction {
         (Tasks innerJoin  Categories)
             .selectAll().where {Tasks.id eq id}
@@ -38,7 +43,7 @@ class TaskService {
     }
 
     fun delete(id: Int): Boolean = transaction {
-        Tasks.deleteWhere { Tasks.id eq id} > 0
+        Tasks.deleteWhere {SqlExpressionBuilder.run { Tasks.id eq id}} > 0
     }
     private fun toDto(row: ResultRow): TaskDto = TaskDto(
         id = row[Tasks.id],

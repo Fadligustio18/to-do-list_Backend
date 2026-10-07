@@ -17,7 +17,9 @@ fun Route.taskController(){
 
     route("/tasks"){
         get {
-            call.respond(service.getAll())
+            val categoryId = call.request.queryParameters["categoryId"]?.toIntOrNull()
+            val completed = call.request.queryParameters["completed"]?.toBooleanStrictOrNull()
+            call.respond(service.getAll(categoryId, completed))
         }
         get("/{id}"){
             val id = call.parameters["id"]?.toIntOrNull()
