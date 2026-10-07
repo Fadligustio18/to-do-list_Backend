@@ -15,6 +15,9 @@ kotlin {
     jvmToolchain(21)
 }
 dependencies {
+    implementation(ktorLibs.server.auth)
+    implementation(ktorLibs.server.auth.jwt)
+    implementation("org.mindrot:jbcrypt:0.4")
     implementation("io.ktor:ktor-serialization-kotlinx-json:3.6.0")
     implementation("org.jetbrains.exposed:exposed-core:0.57.0")
     implementation("org.jetbrains.exposed:exposed-dao:0.57.0")

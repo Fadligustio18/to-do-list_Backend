@@ -18,3 +18,10 @@ object  Tasks: Table("tasks") {
     val categoryId = integer("category_id").references(Categories.id)
     val createdAt = timestamp ("created_at").defaultExpression(CurrentTimestamp)
 }
+object Users : Table("users"){
+    val id = integer("id").autoIncrement()
+    val email = varchar("email", 100).uniqueIndex()
+    val passwordHash = varchar("password_hash", 255)
+
+    override val primaryKey = PrimaryKey(id)
+}
